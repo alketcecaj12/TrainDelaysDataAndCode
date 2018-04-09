@@ -1,0 +1,94 @@
+---
+title: "MyMark"
+author: "AlketCecaj"
+date: "09 gennaio 2017"
+output: html_document
+---
+
+##Loading data
+```{r, echo = FALSE}
+setwd("C:/Users/alketcecaj/Documents/traindelays");
+r2b <- read.csv("C:/Users/alketcecaj/Documents/traindelays/BolognaDelays.csv", sep = "\t", T )
+b2r <- read.csv("C:/Users/alketcecaj/Documents/traindelays/ReggioDelays.csv", sep = "\t", T )
+head(r2b)
+```
+<span style="color:red; font-family:Georgia; font-size:2em;">All the delays are expressed in minutes</span>
+
+###Delay distribution during the observed period
+
+```{r histogram, echo = FALSE}
+
+hist(r2b$Ritardo_In_Minuti,main = "Dealys Reggio Emilia - Bologna", xlab="Delay", breaks = 20)
+hist(b2r$Ritardo_In_Minuti,main = "Delays Bologna - Reggio Emilia",  xlab="Delay",breaks = 20)
+```
+
+### Accumulated Delay per day Bologna
+
+```{r, echo = FALSE}
+setwd("C:/Users/alketcecaj/Documents");
+delayT_r2b <- read.csv("C:/Users/alketcecaj/Documents/traindelays/Delay2Train_BolognaDelays.csv", sep = "\t", T )
+delayT_b2r <- read.csv("C:/Users/alketcecaj/Documents/traindelays/Delay2Train_ReggioDelays.csv", sep = "\t", T )
+
+delayD_r2b <- read.csv("C:/Users/alketcecaj/Documents/traindelays/Delay2Day_BolognaDelays.csv", sep = "\t", T )
+delayD_b2r <- read.csv("C:/Users/alketcecaj/Documents/traindelays/Delay2Day_ReggioDelays.csv", sep = "\t", T )
+
+barplot(delayD_r2b$Ritardo,  names.arg= delayD_r2b$Giorno, cex.names=0.8,col="blue", las=2)
+
+```
+
+### Accumulated Delay per train Bologna
+
+```{r, echo = FALSE}
+barplot(delayT_r2b$Ritardo,  names.arg= delayT_r2b$Nr_Treno, cex.names=0.8,col="blue", las = 2)
+
+```
+
+### Accumulated Delay per day Reggio Emilia
+
+```{r, echo = FALSE}
+barplot(delayD_b2r$Ritardo,  names.arg= delayD_b2r$Giorno, col="red", cex.names=0.8,las = 2)
+
+```
+
+### Accumulated Delay per train Reggio Emilia
+
+```{r, echo = FALSE}
+barplot(delayT_b2r$Ritardo,  names.arg= delayT_b2r$Nr_Treno, cex.names=0.8,col="red", las = 2)
+
+```
+
+### Accumulated Delay per weekday Bologna
+
+```{r, echo = FALSE}
+setwd("C:\\Users\\alketcecaj\\Documents");
+delayWD_b <- read.csv("C:/Users/alketcecaj/Documents/traindelays/Delay2WeekDay_BolognaDelays.csv", sep = "\t", T )
+delayWD_r <- read.csv("C:/Users/alketcecaj/Documents/traindelays/Delay2WeekDay_ReggioDelays.csv", sep = "\t", T )
+
+barplot(delayWD_b$Ritardo,  names.arg= delayWD_b$Giorno, col="blue")
+
+```
+
+### Accumulated Delay per weekday Reggio Emilia
+
+```{r, echo = FALSE}
+barplot(delayWD_r$Ritardo,  names.arg= delayWD_r$Giorno, col="red")
+
+```
+
+### Accumulated Delay upon arrival at Bologna per hour
+
+```{r, echo = FALSE}
+setwd("C:\\Users\\alketcecaj\\Documents");
+delayH_b <- read.csv("C:/Users/alketcecaj/Documents/traindelays/DelayPerHour_BolognaDelays.csv", sep = "\t", T )
+delayH_r <- read.csv("C:/Users/alketcecaj/Documents/traindelays/DelayPerHour_ReggioDelays.csv", sep = "\t", T )
+
+barplot(delayH_b$Ritardo,  names.arg= delayH_b$Ora, col="blue")
+
+```
+
+### Accumulated Delay upon arrival at Reggio Emilia station per hour
+
+```{r, echo = FALSE}
+barplot(delayH_r$Ritardo,  names.arg= delayH_r$Ora, col="red")
+
+```
